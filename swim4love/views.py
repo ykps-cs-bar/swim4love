@@ -30,16 +30,24 @@ def get_swimmer_info(swimmer_id):
 @login_required
 def swimmer_add_lap():
     swimmer_id = request.form.get('id')
+    lap_type = request.form.get('type')
 
     # Validate
     swimmer = get_swimmer(swimmer_id)
 
     # Increment swimmer lap count
-    swimmer.laps += 1
+    if lap_type == 'swim':
+        swimmer.swim_laps += 1
+        swimmer.points += SWIM_LAP_SCORE
+    elif lap_type == 'run':
+        swimmer.run_laps += 1
+        swimmer.points += RUN_LAP_SCORE
+    elif lap_type == 'challenge':
+        swimmer.challenges += 1
+        swimmer.points += CHALLENGE_SCORE
+
     db.session.commit()
-
     broadcast_swimmers()
-
     data = get_swimmer_data(swimmer)
     return jsonify({'code': 0, 'msg': 'Success', 'data': data})
 
@@ -48,19 +56,30 @@ def swimmer_add_lap():
 @login_required
 def swimmer_sub_lap():
     swimmer_id = request.form.get('id')
+    lap_type = request.form.get('type')
 
     # Validate form data
     swimmer = get_swimmer(swimmer_id)
 
-    if swimmer.laps == 0:
-        return get_error_json(5, swimmer_id)
-
     # Decrement swimmer lap count
-    swimmer.laps -= 1
+    if lap_type == 'swim':
+        if swimmer.swim_laps == 0:
+            return get_error_json(5, swimmer_id)
+        swimmer.swim_laps -= 1
+        swimmer.points -= SWIM_LAP_SCORE
+    elif lap_type == 'run':
+        if swimmer.run_laps == 0:
+            return get_error_json(5, swimmer_id)
+        swimmer.run_laps -= 1
+        swimmer.points -= RUN_LAP_SCORE
+    elif lap_type == 'challenge':
+        if swimmer.challenges == 0:
+            return get_error_json(5, swimmer_id)
+        swimmer.challenges -= 1
+        swimmer.points -= CHALLENGE_SCORE
+
     db.session.commit()
-
     broadcast_swimmers()
-
     data = get_swimmer_data(swimmer)
     return jsonify({'code': 0, 'msg': 'Success', 'data': data})
 
@@ -70,7 +89,6 @@ def swimmer_sub_lap():
 def add_new_swimmer():
     swimmer_id = request.form.get('id')
     swimmer_name = request.form.get('name')
-    swimmer_house = request.form.get('house')
 
     # Validate
     if not swimmer_id or not swimmer_name:
@@ -79,11 +97,9 @@ def add_new_swimmer():
         abort(get_error_json(1, swimmer_id))
     if Swimmer.query.get(int(swimmer_id)):
         abort(get_error_json(2, swimmer_id))
-    if swimmer_house not in ["Spring", "Summer", "Autumn", "Winter", "None"]:
-        abort(get_error_json(8, swimmer_id))
 
     # Add swimmer into database
-    swimmer = Swimmer(id=int(swimmer_id), name=swimmer_name, laps=0, house=swimmer_house)
+    swimmer = Swimmer(id=int(swimmer_id), name=swimmer_name, swim_laps=0, run_laps=0, challenges=0, points=0)
     db.session.add(swimmer)
     db.session.commit()
 
