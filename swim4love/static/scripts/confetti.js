@@ -109,7 +109,7 @@ for (var i = 0; i < maxConfettis; i++) {
 }
 
 function check_draw(laps) {
-    if (laps >= BRONZE_MEDAL_LAP_COUNT) {
+    if (laps >= BRONZE_MEDAL_POINT_COUNT) {
         Draw();
     }
 }

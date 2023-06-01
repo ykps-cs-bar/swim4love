@@ -92,9 +92,10 @@
     opacity: 75%;
 }
 
-#meters::after {
+.meters::after {
     content: 'm';
     margin-left: 10px;
+    font-size: 50px;
 }
 
 #canvas {
