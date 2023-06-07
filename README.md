@@ -5,7 +5,7 @@ Code for Swim For Love Charity Event.
 ## Installation
 Run
 ```sh
-git clone https://github.com/YKPS-FooBar/swim4love.git
+git clone https://github.com/ykps-cs-bar/swim4love.git
 cd swim4love
 pip install -r requirements.txt
 ```
