@@ -8,4 +8,4 @@ Flask-Login==0.6.2
 python-socketio==5.7.2
 
 # Production-ready WebSocket support
-eventlet==0.33.2
+eventlet==0.33.3
