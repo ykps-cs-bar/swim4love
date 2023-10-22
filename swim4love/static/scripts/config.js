@@ -1,5 +1,5 @@
 // For leaderboard
-const LAP_LENGTH = 50; // in meters
+const LAP_LENGTH = 300; // in meters
 const METER_UPDATE_SPAN = 400; // in milliseconds
 const LEADER_COLS_WIDTH = [0, 0.08, 0.45, 0.63, 0.76];
 const LEADER_LINE_HEIGHT = 46 * 1.5;

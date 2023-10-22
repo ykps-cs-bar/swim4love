@@ -140,7 +140,7 @@ function unlinkSwimmer(id) {
 
 function addSwimmer(id, name, house, laps) {
     return post('/swimmer/add-with-set', {id: id, name: name, house: house, laps: laps}, data => {
-        console.log(`Added new swimmer #${id}`);
+        console.log(`Added new swimmer #${id} with ${laps} laps`);
         swimmers[id] = data;
         updateSwimmers();
     }).always(() => {
@@ -289,8 +289,9 @@ function submitAddSwimmer(event) {
     const inputId = $('.input-digit').toArray().map(e => $(e).val()).join('');
     const name = $('#add-swimmer-name').val();
     const house = $('#add-swimmer-house').val();
+    const laps = $('#add-swimmer-laps').val();
     if (isValidId(inputId)) {
-        addSwimmer(inputId, name, house);
+        addSwimmer(inputId, name, house, laps);
     }
     event.preventDefault();
 }
