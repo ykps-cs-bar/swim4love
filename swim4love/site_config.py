@@ -7,4 +7,4 @@ ROOT_URL = 'http://swim4love.myykps.cn'
 SWIMMER_ID_LENGTH = 3
 
 # Length of one lap in meters
-LAP_LENGTH = 50
+LAP_LENGTH = 300

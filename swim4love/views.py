@@ -43,6 +43,24 @@ def swimmer_add_lap():
     data = get_swimmer_data(swimmer)
     return jsonify({'code': 0, 'msg': 'Success', 'data': data})
 
+@app.route('/swimmer/set-lap', methods=['POST'])
+@login_required
+def swimmer_set_lap():
+    swimmer_id = request.form.get('id')
+    laps = request.form.get('laps')
+
+    # Validate
+    swimmer = get_swimmer(swimmer_id)
+
+    # Increment swimmer lap count
+    swimmer.laps = laps
+    db.session.commit()
+
+    broadcast_swimmers()
+
+    data = get_swimmer_data(swimmer)
+    return jsonify({'code': 0, 'msg': 'Success', 'data': data})
+
 
 @app.route('/swimmer/sub-lap', methods=['POST'])
 @login_required
@@ -84,6 +102,34 @@ def add_new_swimmer():
 
     # Add swimmer into database
     swimmer = Swimmer(id=int(swimmer_id), name=swimmer_name, laps=0, house=swimmer_house)
+    db.session.add(swimmer)
+    db.session.commit()
+
+    broadcast_swimmers()
+
+    data = get_swimmer_data(swimmer)
+    return jsonify({'code': 0, 'msg': 'Success', 'data': data})
+
+@app.route('/swimmer/add_with_set', methods=['POST'])
+@admin_required
+def add_new_swimmer():
+    swimmer_id = request.form.get('id')
+    swimmer_name = request.form.get('name')
+    swimmer_house = request.form.get('house')
+    swimmer_laps = request.form.get('laps')
+
+    # Validate
+    if not swimmer_id or not swimmer_name:
+        abort(get_error_json(4, swimmer_id))
+    if not is_valid_id(swimmer_id):
+        abort(get_error_json(1, swimmer_id))
+    if Swimmer.query.get(int(swimmer_id)):
+        abort(get_error_json(2, swimmer_id))
+    if swimmer_house not in ["Spring", "Summer", "Autumn", "Winter", "None"]:
+        abort(get_error_json(8, swimmer_id))
+
+    # Add swimmer into database
+    swimmer = Swimmer(id=int(swimmer_id), name=swimmer_name, laps=laps, house=swimmer_house)
     db.session.add(swimmer)
     db.session.commit()
 

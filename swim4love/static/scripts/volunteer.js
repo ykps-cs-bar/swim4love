@@ -138,8 +138,8 @@ function unlinkSwimmer(id) {
     });
 }
 
-function addSwimmer(id, name, house) {
-    return post('/swimmer/add', {id: id, name: name, house: house}, data => {
+function addSwimmer(id, name, house, laps) {
+    return post('/swimmer/add', {id: id, name: name, house: house, laps: laps}, data => {
         console.log(`Added new swimmer #${id}`);
         swimmers[id] = data;
         updateSwimmers();
