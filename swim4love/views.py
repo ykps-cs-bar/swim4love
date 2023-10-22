@@ -110,9 +110,10 @@ def add_new_swimmer():
     data = get_swimmer_data(swimmer)
     return jsonify({'code': 0, 'msg': 'Success', 'data': data})
 
-@app.route('/swimmer/add_with_set', methods=['POST'])
+
+@app.route('/swimmer/add-with-set', methods=['POST'])
 @admin_required
-def add_new_swimmer():
+def add_new_swimmer_with_set():
     swimmer_id = request.form.get('id')
     swimmer_name = request.form.get('name')
     swimmer_house = request.form.get('house')
@@ -129,7 +130,7 @@ def add_new_swimmer():
         abort(get_error_json(8, swimmer_id))
 
     # Add swimmer into database
-    swimmer = Swimmer(id=int(swimmer_id), name=swimmer_name, laps=laps, house=swimmer_house)
+    swimmer = Swimmer(id=int(swimmer_id), name=swimmer_name, laps=swimmer_laps, house=swimmer_house)
     db.session.add(swimmer)
     db.session.commit()
 
