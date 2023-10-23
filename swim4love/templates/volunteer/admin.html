@@ -17,7 +17,7 @@
   <div id="page-container">
     <form id="add-swimmer" style="display: none;">
       <p id="add-swimmer-back"><i class="fas fa-caret-left"></i> 返回</p>
-      <strong class="msg">输入游泳者 3 位编号：</strong>
+      <strong class="msg">输入参赛者 3 位编号：</strong>
       <table id='input-digits-container'>
         <tr>
           <td><input id="1" class="input-digit" type="number" pattern="[0-9]*" maxlength="1" oninput="inputNext(2)"></td>
@@ -27,9 +27,9 @@
       </table>
       <!-- <br />
       或扫描条形码：<div id="barcode-scanner" style="display: none;"></div> -->
-      <strong class="msg">输入游泳者姓名：</strong>
+      <strong class="msg">输入参赛者姓名：</strong>
       <input id="add-swimmer-name" class="input input-text" type="text" placeholder="例：张明 Ming Zhang" autocomplete="off" required>
-      <strong class="msg">选择游泳者学院：</strong>
+      <strong class="msg">选择参赛者学院：</strong>
       <select id="add-swimmer-house" class="input input-dropdown">
         <option value="n/a" disabled selected>选择学院：</option>
         <option value="Spring">Spring</option>
@@ -38,14 +38,14 @@
         <option value="Winter">Winter</option>
         <option value="None">None</option>
       </select>
-      <strong class="msg">输入游泳者圈数：</strong>
+      <strong class="msg">输入参赛者圈数：</strong>
       <input id="add-swimmer-laps" class="input input-text" type="text" placeholder="圈数" autocomplete="off" required>
       <input type="submit" class="input submit" value="登记">
     </form>
 
     <form id="update-swimmer" style="display: none;">
       <p id="update-swimmer-back"><i class="fas fa-caret-left"></i> 返回</p>
-      <strong class="msg">输入游泳者姓名：</strong>
+      <strong class="msg">输入参赛者姓名：</strong>
       <input id="update-swimmer-name" class="input input-text" type="text" placeholder="例：张明 Ming Zhang" autocomplete="off" required>
       <input id="update-swimmer-id" type="hidden" value="">
       <input type="submit" class="input submit" value="更改姓名">
@@ -69,15 +69,15 @@
 	<a href="/logout">登出 <i class="fas fa-sign-out-alt"></i></a>
       </div>
 
-      <input id="swimmers-search-input" class="input input-text" type="text" style="display: none;" placeholder="游泳者 ID 或姓名" autocomplete="off">
+      <input id="swimmers-search-input" class="input input-text" type="text" style="display: none;" placeholder="参赛者 ID 或姓名" autocomplete="off">
       <h1 id="swimmers-heading">
-        管理游泳者
+        管理参赛者
         <i id="swimmers-refresh" class="fas fa-sync-alt"></i>
         <i id="swimmers-search" class="fas fa-search"></i>
       </h1>
       <hr />
       <div id="show-add-swimmer" class="dashed-border-button">
-        <i class="fas fa-plus-square"></i> 登记新游泳者
+        <i class="fas fa-plus-square"></i> 登记新参赛者
       </div>
       <div id="swimmers-list"></div>
 
