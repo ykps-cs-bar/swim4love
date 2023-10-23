@@ -1,5 +1,5 @@
 html {
-    background: #005f90;
+    background: #659137;
     margin: 30px;
     color: white;
     font-family: system-ui, sans-serif;
@@ -74,7 +74,7 @@ hr {
 .list-item-id {
     font-family: monospace;
     font-size: 14px;
-    color: #60AfF0;
+    color: #a5e862;
 }
 
 .list-item-lap-count {
